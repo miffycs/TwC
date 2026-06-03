@@ -106,20 +106,16 @@
                     //index is the # object in the array
                         amount++;
                         parseMessage();
-                        var my_array = document.getElementsByClassName("text");
-                        var last = my_array[my_array.length - 1];
-                        lastDate = messages[parseInt($(last).index())-1];
                         if(author != 'none'){
+                            // Insert a date separator whenever the day changes. Tracked across
+                            // iterations via site.lastDate so it is robust to non-bubble siblings.
+                            if(site.lastDate && site.lastDate != val.DATE){
+                                site.dayCount++;
+                                $('.wrapper').append('<div class="datesep">'+val.DATE+'</div>');
+                            }
+                            site.lastDate = val.DATE;
                             $('.wrapper').append('<div class="'+side+' text"><p>'+copy+'</p></div>');
                             $('.message').last().children('p').linkify();
-
-                            if($(last).index()>0){
-                                if(lastDate.DATE != val.DATE){
-                                    site.dayCount++;
-                                    newLast = $('div.text').last();
-                                    newLast.prepend('<span><div class ="date">'+val.DATE+'</div></span>');
-                                }
-                            }
                         }
       //                   if($(last).index()>0){
          //                    if(lastDate.DATE != val.DATE){
